@@ -19,21 +19,25 @@ Route::get('/', function () {
 
 
 
+Route::get('/', function(){
+  
+  $path= base_path().'/resources/pages/main.html';
+  return view('welcome',[
+      'content'=> file_get_contents($path),
+      
+  ]);
+});
 
-  Route::get('/blog', function(){
+
+
+
+  Route::get('/{name}', function($name){
   
-      $path= base_path().'/resources/posts/posts.html';
-      return view('posts',[
-          'content'=> file_get_contents($path),
-          'blogPath'=> '/blog/'
+      $path= base_path().'/resources/pages/'.$name.'.html';
+      return view('product',[
+          'productDetails'=> file_get_contents($path),
+          'productName'=> $name
       ]);
     });
   
-    Route::get('/blog/{post}', function($post){
   
-      $path= base_path().'/resources/posts/'.$post.'.html';
-      return view('post',[
-          'post'=> file_get_contents($path),
-          'blogPath'=> '/blog/'.$post
-      ]);
-    });
