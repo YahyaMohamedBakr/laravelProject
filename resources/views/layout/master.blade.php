@@ -34,7 +34,7 @@
     <!-- header section strats -->
     <header class="header_section">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
-        <a class="navbar-brand" href="@yield('blogPath')">
+        <a class="navbar-brand" href="">
           <span>
             @yield('name', 'My Shop')
           </span>
@@ -87,7 +87,7 @@
       </nav>
     </header>
     <!-- end header section -->
-   @yield('content')
+   @yield('products')
 
   <!-- footer section -->
   <footer class=" footer_section">

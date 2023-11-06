@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Shop;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,18 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 
 Route::get('/', function(){
-  
-  $path= base_path().'/resources/pages/main.html';
+
+$all =Shop::all();
+//ddd($all);
+
+  // $path= base_path().'/resources/pages/html_layout/main.html';
   return view('welcome',[
-      'content'=> file_get_contents($path),
-      
+      //'content'=> file_get_contents($path),
+      //'content'=> Shop::find('ring'),
+    'products' => $all,
   ]);
 });
 
@@ -32,12 +37,17 @@ Route::get('/', function(){
 
 
   Route::get('/{name}', function($name){
-  
-      $path= base_path().'/resources/pages/'.$name.'.html';
+
+    $product = Shop::find($name);
+
+      // $path= base_path().'/resources/pages/'.$name.'.html';
+
+      // if(!file_exists($path)){
+      //   return ddd('this file is not exist');
+      // }
       return view('product',[
-          'productDetails'=> file_get_contents($path),
+          'productDetails'=> $product,
           'productName'=> $name
       ]);
     });
-  
-  
+

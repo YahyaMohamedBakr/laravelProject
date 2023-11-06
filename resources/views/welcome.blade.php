@@ -1,7 +1,16 @@
 @extends('layout.master')
 
-@section('content')
-    <?= $content?>
+@section('products')
+
+@foreach ($products as $product)
+{{!!$product !!}}
+@endforeach
+
 @endsection
+
+
+
+
+
 
 
