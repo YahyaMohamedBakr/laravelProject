@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Shop;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Illuminate\Support\Facades\File;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,27 @@ use App\Models\Shop;
 
 Route::get('/', function(){
 
+$products = File::allFiles(resource_path().'/pages/');
+// $document=YamlFrontMatter::parseFile( resource_path('pages/ring.html'));
+// ddd($document->matter('title'));
+$documents=[];
+foreach($products as $product){
+   $details= YamlFrontMatter::parseFile($product);
+
+   $documents[]=new Shop(
+    $details->title,
+    $details->slug,
+    $details->excerpt,
+    $details->date,
+    $details->price ,
+    $details->category,
+    $details->body()
+);
+
+}
+
+//ddd($documents);
+
 $all =Shop::all();
 //ddd($all);
 
@@ -29,7 +52,7 @@ $all =Shop::all();
   return view('welcome',[
       //'content'=> file_get_contents($path),
       //'content'=> Shop::find('ring'),
-    'products' => $all,
+    'products' => $documents,
   ]);
 });
 
@@ -38,16 +61,19 @@ $all =Shop::all();
 
   Route::get('/{name}', function($name){
 
-    $product = Shop::find($name);
-
+    $productPage = Shop::find($name)[1];
+   // ddd($productPage);
+    $productDetails = YamlFrontMatter::parseFile($productPage);
       // $path= base_path().'/resources/pages/'.$name.'.html';
 
       // if(!file_exists($path)){
       //   return ddd('this file is not exist');
       // }
+
+  //ddd($productDetails);
       return view('product',[
-          'productDetails'=> $product,
-          'productName'=> $name
+          'product'=> $productDetails,
+          //'productName'=> $name
       ]);
     });
 
