@@ -5,30 +5,31 @@
 
     @foreach ($products as $product)
 
-    <div class="row">
         <div class="col-sm-6 col-md-4 col-lg-3">
-
-    {!!$product->body!!}
-    <div class="detail-box">
-    <h6>
-    <a href="/{{$product->slug}}"> {{ $product->title}}</a>
-    </h6>
-    <h6>
-        Price
-        <span>
-        {{$product->price}}
-        </span>
-    </h6>
-    </div>
-    <div class="new">
-    <span>
-        {{$product->category}}
-    </span>
-    </div>
-    </a>
-    </div>
-    </div>
-
+            <div class="box">
+                <a href="/{{$product->slug}}">
+                <div class="img-box">
+                    <img src="/src/images/{{$product->img}}" alt="">
+                </div>
+                <div class="detail-box">
+                    <h6>
+                        {{$product->title}}
+                    </h6>
+                    <h6>
+                        Price
+                    <span>
+                            {{$product->price}}
+                    </span>
+                    </h6>
+                </div>
+                <div class="new">
+                    <span>
+                    {{$product->category}}
+                    </span>
+                </div>
+                    </a>
+            </div>
+        </div>
     @endforeach
 {{-- {!! $products!!} --}}
 @endsection
